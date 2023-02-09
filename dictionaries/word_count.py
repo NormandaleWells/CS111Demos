@@ -67,11 +67,11 @@ Parameters:
 def print_sorted_word_counts(counts, f):
 
     # Get all the key/value pairs as a list.
-    item_list = list(counts.items())
+    item_list = sorted(counts.items(), key = lambda item: item[1], reverse=True)
 
     # Sort the list, using the value (the second item in the key/value
     # tuple) as the key.
-    item_list.sort(key = lambda item: item[1], reverse=True)
+#    item_list.sort(key = lambda item: item[1], reverse=True)
 
     # Print the sorted list.
     for word,count in item_list:
@@ -96,11 +96,11 @@ if __name__ == "__main__":
     # If there was only 1 program argument, there is no output
     # file; write the results to standard output.
     if len(args) == 1:
-        print_word_counts(word_counts, sys.stdout)
+        print_sorted_word_counts(word_counts, sys.stdout)
     
     # Otherwise, we have an output file.  Open it, and write
     # the results there.
     else:
         f = open(args[1], "w")
-        print_word_counts(word_counts, f)
+        print_sorted_word_counts(word_counts, f)
         f.close()
