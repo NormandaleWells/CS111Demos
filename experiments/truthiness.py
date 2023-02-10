@@ -17,3 +17,12 @@ print(bool(""))
 print(bool("xyzzy"))
 print(bool("0"))
 print(bool("False"))
+
+my_list = []
+
+if len(my_list) != 0:
+    pass
+if my_list:
+    pass
+else:
+    
