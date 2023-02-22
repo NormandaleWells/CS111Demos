@@ -27,9 +27,10 @@ class Button:
 class Board:
 
     margin = 10
-    square_size = 100
+    square_size = 102
     num_rows = 4
     num_columns = 4
+    num_tiles = num_rows * num_columns
     border_size = 1
     board_width = square_size * num_columns + border_size * (num_columns + 1)
     board_height = square_size * num_rows + border_size * (num_rows + 1)
@@ -38,6 +39,18 @@ class Board:
     button_height = 30
     window_width = margin + board_width + margin + button_width + margin
     window_height = margin + board_height + margin
+    image_offset_x = 52
+    image_offset_y = 51
+
+    def move_tile(self, tile, position):
+        col,row = position
+        x = self.image_offset_x + col * (self.square_size + 1)
+        y = self.image_offset_y + ((self.num_rows - 1) - row) * (self.square_size + 1)
+        cur_pos = self.number_images[tile].getAnchor()
+        cur_x = cur_pos.getX()
+        cur_y = cur_pos.getY()
+        # todo: animate this
+        self.number_images[tile].move(x - cur_x, y - cur_y)
 
     def __init__(self):
         self.win = GraphWin("16 Puzzle", self.window_width, self.window_height)
@@ -46,6 +59,7 @@ class Board:
             self.window_width-self.margin, self.window_height - self.margin)
 
         self.board_rect = Rectangle(Point(0, 0), Point(self.board_width, self.board_height))
+        self.board_rect.setFill("white")
         self.lines = []
         for i in range(1, self.num_columns):
             x = i * (self.square_size + 1)
@@ -62,6 +76,23 @@ class Board:
         self.solve_button = Button(Point(self.button_left, button_offset * 2), "Solve")
         self.rand_button  = Button(Point(self.button_left, button_offset * 3), "Randomize")
 
+        self.number_images = [None]
+        for i in range(1, self.num_tiles):
+            image = Image(Point(0, 0), f"tile_{i}.gif")
+            self.number_images.append(image)
+
+        self.position_images = {}
+        self.image_positions = [0] * self.num_tiles
+        for row in range(self.num_rows):
+            for col in range(self.num_columns):
+                pos = (col, row)
+                image_idx = row * self.num_columns + col + 1
+                if image_idx == self.num_tiles: image_idx = 0
+                self.position_images[pos] = image_idx
+                self.image_positions[image_idx] = pos
+                if image_idx != 0:
+                    self.move_tile(image_idx, pos)
+
     def draw(self):
         self.board_rect.draw(self.win)
         for line in self.lines:
@@ -70,6 +101,21 @@ class Board:
         self.save_button.draw(self.win)
         self.solve_button.draw(self.win)
         self.rand_button.draw(self.win)
+        for image in self.number_images:
+            if image != None:
+                image.draw(self.win)
+
+    def move_to_blank(self, tile):
+        blank_pos = self.image_positions[0]
+        tile_pos = self.image_positions[tile]
+        if abs(blank_pos[0] - tile_pos[0]) + abs(blank_pos[1] - tile_pos[1]) != 1:
+            print("invalid move")
+        else:
+            self.move_tile(tile, blank_pos)
+            self.image_positions[tile] = blank_pos
+            self.image_positions[0] = tile_pos
+            self.position_images[blank_pos] = tile
+            self.position_images[tile_pos] = None
 
     def wait_for_click(self):
         pt = self.win.getMouse()
@@ -80,6 +126,7 @@ class Board:
 def test():
     board = Board()
     board.draw()
+    board.move_to_blank(12)
     while (True):
         obj = board.wait_for_click()
         if type(obj) == type("") and obj == "Done":
