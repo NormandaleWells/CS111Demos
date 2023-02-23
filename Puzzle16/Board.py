@@ -1,3 +1,6 @@
+import time
+import utilities
+import math
 
 from graphics import *
 
@@ -19,9 +22,7 @@ class Button:
         return self.button_text.getText()
 
     def click(self, pt):
-        ll = self.button_rect.getP1()
-        ur = self.button_rect.getP2()
-        return ll.getX() <= pt.getX() < ur.getX() and ll.getY() <= pt.getY() < ur.getY()
+        return utilities.pt_in_rect(pt, self.button_rect)
 
 
 class Board:
@@ -117,20 +118,38 @@ class Board:
             self.position_images[blank_pos] = tile
             self.position_images[tile_pos] = None
 
+    def get_tile_at(self, pos):
+        return self.position_images[pos]
+
     def wait_for_click(self):
         pt = self.win.getMouse()
         if self.done_button.click(pt):
             return self.done_button.text()
-
+        if self.save_button.click(pt):
+            return self.save_button.text()
+        if self.solve_button.click(pt):
+            return self.solve_button.text()
+        if self.rand_button.click(pt):
+            return self.rand_button.text()
+        if utilities.pt_in_rect(pt, self.board_rect):
+            col = round(pt.getX()) // self.square_size
+            row = round(pt.getY()) // self.square_size
+            row = (self.num_rows - 1) - row
+            if col in range(self.num_columns) and row in range(self.num_rows):
+                return (col,row)
 
 def test():
     board = Board()
     board.draw()
-    board.move_to_blank(12)
     while (True):
         obj = board.wait_for_click()
-        if type(obj) == type("") and obj == "Done":
-            break
+        if type(obj) == type(""):
+            print(f"{obj} button clicked")
+            if obj == "Done":
+                break
+        elif type(obj) == type((0,0)):
+            tile = board.get_tile_at(obj)
+            board.move_to_blank(tile)
 
 
 if __name__ == "__main__":
