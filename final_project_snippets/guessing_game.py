@@ -61,7 +61,8 @@ class HumanPlayer:
     
 
 '''
-A computer player just guesses randomly.
+A computer player just guesses randomly.  We make no attempt
+to avoid numbers already guessed by the human.
 '''
 class ComputerPlayer:
 
