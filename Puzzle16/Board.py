@@ -1,6 +1,8 @@
 '''
 This module contains the Board class, which maintains the board state
 and move/redraws tiles when necessary.
+
+TODO: Separate this into two classes: Board and GameWindow.
 '''
 
 import time
@@ -9,48 +11,7 @@ import math
 
 from graphics import *
 
-'''
-The Button class represents one of the buttons on the right-hand
-margin of the window.  No buttons are predefined by the board; it
-is up to the Game class to tell the Board to create the buttons.
-'''
-class Button:
-
-    button_width = 100
-    button_height = 30
-
-    '''
-    Create a button at the given position (lower left),
-    with the given text.
-    '''
-    def __init__(self, lower_left, text):
-        x = lower_left.getX()
-        y = lower_left.getY()
-        self.button_rect = Rectangle(
-            lower_left,
-            Point(x + self.button_width, y + self.button_height))
-        self.button_text = Text(Point(x + self.button_width // 2, y + self.button_height // 2), text)
-
-    '''
-    Draw the button on the given GraphWin object.
-    '''
-    def draw(self, win):
-        self.button_rect.draw(win)
-        self.button_text.draw(win)
-
-    '''
-    Return the text for this button.
-    '''
-    def text(self):
-        return self.button_text.getText()
-
-    '''
-    Return True if the given point is in the button,
-    False otherwise.
-    '''
-    def click(self, pt):
-        return utilities.pt_in_rect(pt, self.button_rect)
-
+import button
 
 '''
 The Board class represents the board along with any buttons defined
@@ -107,7 +68,7 @@ class Board:
     board_width = square_size * num_columns + border_size * (num_columns + fence_post)
     board_height = square_size * num_rows + border_size * (num_rows + fence_post)
     button_left = board_width + margin
-    window_width = margin + board_width + margin + Button.button_width + margin
+    window_width = margin + board_width + margin + button.Button.button_width + margin
     window_height = margin + board_height + margin
     image_offset_x = 52
     image_offset_y = 51
@@ -233,10 +194,10 @@ class Board:
     is on the bottom, and the rest stack on top.
     '''
     def add_button(self, text):
-        button_offset = Button.button_height + self.margin
-        button = Button(Point(self.button_left, button_offset * len(self.buttons)), text)
-        button.draw(self.win)
-        self.buttons.append(button)
+        button_offset = button.Button.button_height + self.margin
+        b = button.Button(Point(self.button_left, button_offset * len(self.buttons)), text)
+        b.draw(self.win)
+        self.buttons.append(b)
 
     '''
     Move the given tile to the blank position, and update
