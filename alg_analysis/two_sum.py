@@ -6,10 +6,10 @@ Find the number of pairs of items in list a that sum to 0.
 def two_sum_slow(a):
     count = 0
     for i in range(len(a)):
-        for j in range(len(a)):
+        for j in range(i+1, len(a)):
             if a[i] + a[j] == 0:
                 count += 1
-    return count // 2
+    return count
 
 
 '''
@@ -20,10 +20,10 @@ duplicate items in the list.
 def two_sum_fast(a):
     count = 0
     nums = set()
-    for n in a:
-        if -n in nums:
+    for num in a:
+        if -num in nums:
             count += 1
-        nums.add(n)
+        nums.add(num)
     return count
 
 

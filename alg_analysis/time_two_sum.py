@@ -35,15 +35,22 @@ def run_one_test(test_slow, test_fast, n, m):
 
 
 def main():
-    test_slow = True
-    test_fast = False
-    run_one_test(test_slow, test_fast,  1000,  2000)
-    run_one_test(test_slow, test_fast,  2000,  4000)
-    run_one_test(test_slow, test_fast,  4000,  8000)
-    run_one_test(test_slow, test_fast,  8000, 16000)
-    run_one_test(test_slow, test_fast, 16000, 32000)
-    run_one_test(test_slow, test_fast, 32000, 64000)
-
+    test_slow = False
+    test_fast = True
+    run_one_test(test_slow, test_fast,   1000,  2000)
+    run_one_test(test_slow, test_fast,   2000,  4000)
+    run_one_test(test_slow, test_fast,   4000,  8000)
+    run_one_test(test_slow, test_fast,   8000, 16000)
+    run_one_test(test_slow, test_fast,  16000, 32000)
+    run_one_test(test_slow, test_fast,  32000, 64000)
+    run_one_test(test_slow, test_fast,  64000, 128000)
+    run_one_test(test_slow, test_fast, 128000, 256000)
+    run_one_test(test_slow, test_fast, 256000, 512000)
+    run_one_test(test_slow, test_fast, 512000, 1024000)
+    run_one_test(test_slow, test_fast, 1024000, 2048000)
+    run_one_test(test_slow, test_fast, 2048000, 4096000)
+    run_one_test(test_slow, test_fast, 4096000, 8192000)
+    run_one_test(test_slow, test_fast, 8192000, 16374000)
 
 if __name__ == "__main__":
     main()
