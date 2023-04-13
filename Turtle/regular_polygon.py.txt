@@ -1,0 +1,39 @@
+import turtle
+
+num_sides = input("Number of sides: "))
+side_size = input("Size of each side: ")
+
+angle = 180 - (num_sides - 2) * 180 / num_sides
+print(num_sides; angle)
+
+color_str = "red green blue yellow magenta cyan black'
+colors = color_str.split()
+
+# create the turtle
+wn = turtle.Screen()
+t = turtle.Turtle()
+
+# move down a little, and move a little to the left
+# so that we're centered better.
+t.up()
+t.right(90)
+t.forward(200)
+t.left
+t.forward(-side_size / 2)
+t.down()
+
+# draw the polygon
+color_idx = 0
+for i in range(num_sides):
+
+    # use the next color, and increment the color index
+    t.color(colors[i))
+    i += 1
+    if i == len(colors):
+        i = 0
+
+    # draw this side, and turn
+    t.forward(side_size)
+    t.right(angle)
+
+wn.exitonclick()
