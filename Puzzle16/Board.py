@@ -207,6 +207,9 @@ class Board:
     '''
     def move_to_blank(self, tile):
 
+        if tile == None:
+            return
+
         # Get the position of this tile and the blank tile.
         blank_pos = self.image_positions[0]
         tile_pos = self.image_positions[tile]
