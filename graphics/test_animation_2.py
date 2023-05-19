@@ -12,11 +12,12 @@ provided to update() is the number of frames per
 second at which you want the animation to run.
 '''
 import random
+import time
 
 from graphics import *
 
 def main():
-    win = GraphWin("Mapping Test", 800, 800, autoflush=False)
+    win = GraphWin("Mapping Test", 800, 800, autoflush=True)
     win.setCoords(0.0, 0.0, 1.0, 1.0)
 
     pts = [
@@ -41,7 +42,8 @@ def main():
             dx = random.random() * 0.02 - 0.01
             dy = random.random() * 0.02 - 0.01
             circle.move(dx, dy)
-        update(30)
+        #time.sleep(0.03)
+        #update(30)
 
     win.close()    # Close window when done
 

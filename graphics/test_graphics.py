@@ -13,4 +13,5 @@ def main():
 
     win.close()    # Close window when done
 
-main()
+if __name__ == "__main__":
+    main()
