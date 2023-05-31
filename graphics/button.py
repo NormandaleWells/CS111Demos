@@ -19,6 +19,17 @@ class Button:
     button_height = 30
 
     '''
+    Set the size for all future buttons.  This is useful when the
+    window is mapped to non-pixel coordiantes.  This is not an
+    instance method, it is a class method, so it's called like
+    this:
+        button.Button.set_button_size(w,h)
+    '''
+    def set_button_size(width, height):
+        Button.button_width = width
+        Button.button_height = height
+
+    '''
     Create a button at the given position (lower left),
     with the given text.
     '''
@@ -28,7 +39,7 @@ class Button:
         self.button_rect = Rectangle(
             lower_left,
             Point(x + self.button_width, y + self.button_height))
-        self.button_text = Text(Point(x + self.button_width // 2, y + self.button_height // 2), text)
+        self.button_text = Text(Point(x + self.button_width / 2, y + self.button_height / 2), text)
 
     '''
     Draw the button on the given GraphWin object.
