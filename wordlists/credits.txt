@@ -1,0 +1,8 @@
+linuxwords	https://users.cs.duke.edu/~ola/ap/
+		Owen Astrachan, Duke University
+		probably the most useful, has some proper nouns
+
+wordlist.10000	https://www.mit.edu/~ecprice/wordlist.10000
+		no proper nouns, but lots of oddball words
+
+english-words	https://github.com/dwyl/english-words
