@@ -3,10 +3,16 @@ from graphics import *
 import utilities
 
 '''
-The Button class represents one of the buttons on the right-hand
-margin of the window.  No buttons are predefined by the board; it
-is up to the Game class to tell the Board to create the buttons.
+The Button class represents a user interface
+pushbutton that can be clicked to cause some
+action within the program.
+
+To use this class, create a Button object
+with a given lower-left corner, and for each
+mouse click, call the click() method to see
+if that click was within the button.
 '''
+
 class Button:
 
     button_width = 100
