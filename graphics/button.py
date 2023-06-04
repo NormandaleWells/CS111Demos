@@ -55,4 +55,9 @@ class Button:
     def click(self, pt):
         return utilities.pt_in_rect(pt, self.button_rect)
 
-
+    '''
+    Draw the button on the given GraphWin object.
+    '''
+    def undraw(self):
+        self.button_rect.undraw()
+        self.button_text.undraw()

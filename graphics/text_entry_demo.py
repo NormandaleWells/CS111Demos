@@ -38,5 +38,8 @@ def main():
             text = Text(Point(200, 150), f'setting up a {s} player game')
             text.draw(win)
 
+    done_button.undraw()
+    enter_button.undraw()
+
 if __name__ == "__main__":
     main()

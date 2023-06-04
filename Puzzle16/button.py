@@ -44,4 +44,9 @@ class Button:
     def click(self, pt):
         return utilities.pt_in_rect(pt, self.button_rect)
 
-
+    '''
+    Undraw the button.
+    '''
+    def draw(self):
+        self.button_rect.undraw()
+        self.button_text.undraw()
